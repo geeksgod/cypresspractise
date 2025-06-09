@@ -24,12 +24,13 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run
 
-      - name: Generate combined HTML report
-        run: |
-          npx mochawesome-merge cypress/reports/*.json > mochawesome.json
-          npx marge mochawesome.json --reportDir cypress/html-report
+      - name: Merge Mochawesome JSON reports
+        run: npx mochawesome-merge cypress/reports/*.json > mochawesome.json
 
-      - name: Upload HTML report
+      - name: Generate Mochawesome HTML report
+        run: npx marge mochawesome.json --reportDir cypress/html-report
+
+      - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
         with:
           name: cypress-html-report
